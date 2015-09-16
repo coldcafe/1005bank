@@ -1,0 +1,12 @@
+<div class="scrollable ng-scope" ng-controller="payListCtrl">
+    <div class="scrollable-content section overthrow">
+        <div class="list-group">
+            <div class="list-group-item list-group-item-home" ng-repeat="payItem in payList">
+                商品名称：{{payItem.title}}<br/>
+                金额：{{payItem.money}}<br/>
+                参与人：<span ng-repeat="joinPayItem in payItem.joinPayList"> {{joinPayItem.name}} </span><br/>
+                时间：{{payItem.createdAt}}<br/>
+            </div>
+        </div>
+    </div>
+</div>

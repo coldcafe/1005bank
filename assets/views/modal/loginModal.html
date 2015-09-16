@@ -1,0 +1,41 @@
+<div ui-content-for="loginModal">
+    <div class="modal" ng-if="loginModal.state">
+        <div class="modal-backdrop in"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ng-click="loginModal.hide()">&times;</button>
+                    <h4 class="modal-title">登录</h4>
+                </div>
+                <div class="modal-body" ng-controller="loginCtrl">
+                    <form role="form" class="ng-pristine ng-valid">
+                        <fieldset>
+                            <div class="form-group">
+                                <label>用户名</label>
+                                <input ng-model="userForm.name" type="text" class="form-control needsclick" placeholder="输入用户名">
+                            </div>
+
+                            <div class="form-group">
+                                <label>密码</label>
+                                <input ng-model="userForm.password" type="password" class="form-control needsclick" placeholder="输入密码">
+                            </div>
+
+                            <div class="form-group">
+                                <label>记住我</label>
+                                <ui-switch ng-model="userForm.remmenberMe" class="ng-pristine ng-untouched ng-valid ng-isolate-scope switch active switch-transition-enabled"><div class="switch-handle"></div></ui-switch>
+                            </div>
+                            {{loginResult}}
+                        </fieldset>
+                        <hr>
+                        <button ng-click="userForm.login()" class="btn btn-primary btn-block">
+                            登录
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" ng-click="loginModal.hide()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

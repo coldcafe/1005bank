@@ -1,0 +1,29 @@
+<div class="scrollable ng-scope" ng-controller="payFormCtrl">
+    <div class="scrollable-content section overthrow">
+        <form role="form" ng-submit="payForm.ok()" class="ng-pristine ng-valid">
+            <fieldset>
+                <div class="form-group">
+                    <label>买的啥东西</label>
+                    <input ng-model="payForm.title" type="text" class="form-control needsclick">
+                </div>
+                <div class="form-group">
+                    <label>来张图嘛(暂时不能用)</label>
+                    <input ng-model="payForm.pic" type="file" class="form-control needsclick">
+                </div>
+                <div class="form-group">
+                    <label>多少钱</label>
+                    <input ng-model="payForm.money" type="text" class="form-control needsclick">
+                </div>
+
+                <div class="form-group">
+                    <label>参与的小伙伴</label>
+                    <a class="btn btn-default" ng-click="joinPayModal.show()">选择</a>
+                </div>
+            </fieldset>
+            <hr>
+            <button type="submit" class="btn btn-primary btn-block">
+                买买买，土豪给你们付钱咯
+            </button>
+        </form>
+    </div>
+</div>

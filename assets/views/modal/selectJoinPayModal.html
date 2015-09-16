@@ -1,0 +1,27 @@
+<div ui-content-for="selectJoinPayModal">
+    <div class="modal" ng-controller="payFormCtrl" ng-if="joinPayModal.state">
+        <div class="modal-backdrop in"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ng-click="joinPayModal.hide()">&times;</button>
+                    <h4 class="modal-title">登录</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="ng-pristine ng-valid">
+                        <fieldset>
+                            <div ng-repeat="each in selectJoinPay.userList">
+                                <label>{{each.name}}</label>
+                                <ui-switch ng-model="each.select" class="ng-pristine ng-untouched ng-valid ng-isolate-scope switch active switch-transition-enabled"><div class="switch-handle"></div></ui-switch>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="selectJoinPay.selectJoin()">确认</button>
+                    <button class="btn btn-default" ng-click="joinPayModal.hide()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
