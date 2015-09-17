@@ -1,7 +1,7 @@
 <div class="scrollable ng-scope" ng-controller="billListCtrl">
     <div class="scrollable-header">
     </div>
-    <div id="billScrollableContent" class="scrollable-content section" ui-scroll-bottom="loadMore()">
+    <div class="scrollable-content section" ui-scroll-bottom="loadMore()">
         <div class="list-group">
             <div class="list-group-item list-group-item-home" ng-repeat="billItem in billList">
                 商品名称：{{billItem.title}}<br/>

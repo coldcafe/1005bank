@@ -10,11 +10,11 @@ myApp.controller("payListCtrl",function ($rootScope,$scope,$cookies,$http){
         $scope.loadMore=function(){
             if(!$scope.busy) {
                 $scope.busy = true;
-                $http.get($rootScope.config.DBUrl + "/order?sort=-createAt&limit=10&skip=" + $scope.page * 10 + "&payUser=" + $rootScope.user.id).success(function (data) {
+                $http.get($rootScope.config.DBUrl + "/order?sort=createdAt DESC&limit=10&skip=" + $scope.page * 10 + "&payUser=" + $rootScope.user.id).success(function (data) {
                     if (data) {
                         data.forEach(function (e) {
                             e.createdAt = moment(e.createdAt).format('YYYY-MM-DD HH:mm');
-                            $scope.billList.push(e);
+                            $scope.payList.push(e);
                         });
                     }
                     $scope.page++;
@@ -23,7 +23,7 @@ myApp.controller("payListCtrl",function ($rootScope,$scope,$cookies,$http){
             }
         };
 
-        $http.get($rootScope.config.DBUrl+"/order?sort=-createAt&limit=10&payUser="+$rootScope.user.id).success(function (data) {
+        $http.get($rootScope.config.DBUrl+"/order?sort=createdAt DESC&limit=10&payUser="+$rootScope.user.id).success(function (data) {
             if(data){
                 data.forEach(function(e){
                     e.createdAt = moment(e.createdAt).format('YYYY-MM-DD HH:mm');

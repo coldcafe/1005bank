@@ -1,5 +1,7 @@
 <div class="scrollable ng-scope" ng-controller="payListCtrl">
-    <div class="scrollable-content section overthrow">
+  <div class="scrollable-header">
+  </div>
+  <div class="scrollable-content section" ui-scroll-bottom="loadMore()">
         <div class="list-group">
             <div class="list-group-item list-group-item-home" ng-repeat="payItem in payList">
                 商品名称：{{payItem.title}}<br/>
@@ -9,4 +11,6 @@
             </div>
         </div>
     </div>
+  <div class="scrollable-footer">
+  </div>
 </div>

@@ -11,7 +11,7 @@ myApp.controller("billListCtrl",function ($rootScope,$scope,$cookies,$http){
         $scope.loadMore=function(){
             if(!$scope.busy) {
                 $scope.busy = true;
-                $http.get($rootScope.config.DBUrl + "/bill?sort=-createAt&limit=10&skip=" + $scope.page * 10 + "&billUser=" + $rootScope.user.id).success(function (data) {
+                $http.get($rootScope.config.DBUrl + "/bill?sort=createdAt DESC&limit=10&skip=" + $scope.page * 10 + "&billUser=" + $rootScope.user.id).success(function (data) {
                     if (data) {
                         data.forEach(function (e) {
                             e.createdAt = moment(e.createdAt).format('YYYY-MM-DD HH:mm');
@@ -24,7 +24,7 @@ myApp.controller("billListCtrl",function ($rootScope,$scope,$cookies,$http){
             }
         };
 
-        $http.get($rootScope.config.DBUrl+"/bill?sort=-createAt&limit=10&billUser="+$rootScope.user.id).success(function (data) {
+        $http.get($rootScope.config.DBUrl+"/bill?sort=createdAt DESC&limit=10&billUser="+$rootScope.user.id).success(function (data) {
             if(data){
                 data.forEach(function(e){
                     e.createdAt = moment(e.createdAt).format('YYYY-MM-DD HH:mm');
