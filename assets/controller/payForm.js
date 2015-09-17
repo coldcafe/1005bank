@@ -15,7 +15,6 @@ myApp.controller("payFormCtrl",function ($rootScope,$scope,$cookies,$http){
             userList:$rootScope.cacheDate.userList,
             selectJoin:function(){
                 console.log('selectJoin');
-                $rootScope.cacheDate.userList = $scope.selectJoinPay.userList;
                 $rootScope.cacheDate.joinPayList = [];
                 $scope.selectJoinPay.userList.forEach(function(e){
                     if(e.select){
@@ -26,6 +25,7 @@ myApp.controller("payFormCtrl",function ($rootScope,$scope,$cookies,$http){
             }
         }
 
+        $scope.busy = false;
         //记账表单
         $scope.payForm = {
             title:'',
@@ -33,21 +33,29 @@ myApp.controller("payFormCtrl",function ($rootScope,$scope,$cookies,$http){
             money:'',
             joinPayList:[],
             ok:function(){
-                $rootScope.cacheDate.joinPayList.forEach(function(e){
-                    $scope.payForm.joinPayList.push({id: e.id, name: e.name});
-                });
-                $http.post($rootScope.config.DBUrl+"/order",{title:$scope.payForm.title,money:$scope.payForm.money,joinPayList:$scope.payForm.joinPayList,payUser:$rootScope.user.id}).success(function (data) {
-                    if(data){
-                        alert('记账成功');
-                        data.joinPayList.forEach(function(each){
-                            $http.post($rootScope.config.DBUrl+"/bill",{orderId:data.id,title:data.title,money:ItoDecimal2(data.money/data.joinPayList.length),joinPayList:$scope.payForm.joinPayList,billUser:each.id}).success(function (result) {
-                                if(result) {
-                                    console.log('生成账单成功');
-                                }
+                if(!$scope.busy) {
+                    $scope.busy = true;
+                    $scope.payForm.joinPayList = [];
+                    $rootScope.cacheDate.joinPayList.forEach(function (e) {
+                        $scope.payForm.joinPayList.push({id: e.id, name: e.name});
+                    });
+                    $http.post($rootScope.config.DBUrl + "/order", {title: $scope.payForm.title, money: $scope.payForm.money, joinPayList: $scope.payForm.joinPayList, payUser: $rootScope.user.id}).success(function (data) {
+                        if (data) {
+                            var i = 0;
+                            data.joinPayList.forEach(function (each) {
+                                $http.post($rootScope.config.DBUrl + "/bill", {orderId: data.id, title: data.title, money: ItoDecimal2(data.money / data.joinPayList.length), joinPayList: $scope.payForm.joinPayList, billUser: each.id}).success(function (result) {
+                                    if (result) {
+                                        i++;
+                                        if (i == data.joinPayList.length) {
+                                            alert('记账成功');
+                                            $scope.busy = false;
+                                        }
+                                    }
+                                });
                             });
-                        });
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     }
