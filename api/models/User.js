@@ -8,7 +8,31 @@
 module.exports = {
 
   attributes: {
-
+      name:{
+          type: 'string'
+      },
+      age:{
+          type: 'integer'
+      },
+      password:{
+          type: 'string'
+      },
+      tel:{
+          type: 'string'
+      },
+      sex:{
+          type: 'string',
+          enum: ['男','女'],
+          defaultsTo: '男'
+      },
+      group:{
+          type: 'string',
+          defaultsTo: '1005'
+      },
+      goingToSettle:{
+          type: 'boolean',
+          defaultsTo:false
+      }
   }
 };
 

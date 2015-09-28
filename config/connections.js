@@ -72,6 +72,14 @@ module.exports.connections = {
       // password: 'password',
       database: '1005bank'
   },
+    Mongodb_1005bank_remote: {
+        adapter: 'sails-mongo',
+        host: '52.76.74.65',
+        port: 27017,
+        // user: 'username',
+        // password: 'password',
+        database: '1005bank'
+    },
   /***************************************************************************
   *                                                                          *
   * PostgreSQL is another officially supported relational database.          *

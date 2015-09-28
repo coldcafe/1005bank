@@ -8,7 +8,18 @@
 module.exports = {
 
   attributes: {
-
+      title:{
+          type:'string'
+      },
+      money:{
+          type:'float'
+      },
+      joinPayList:{
+          type:'array'
+      },
+      payUser:{
+          type:'string'
+      }
   }
 };
 
