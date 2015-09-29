@@ -68,6 +68,16 @@ myApp.controller("appCtrl",function($rootScope,$scope,$cookies,$http){
             $rootScope.joinPayModal.state = false;
         }
     };
+    //显示结算单
+    $rootScope.showSettlementModal = {
+        state:false,
+        show:function(){
+            $rootScope.showSettlementModal.state = true;
+        },
+        hide:function(){
+            $rootScope.showSettlementModal.state = false;
+        }
+    };
 
 //---*控制模态框开关函数---END
 
@@ -80,10 +90,10 @@ myApp.controller("appCtrl",function($rootScope,$scope,$cookies,$http){
 //---*config，配置信息---END
 
 
-//----缓存cacheDate，用于缓存controller需要共同访问的数据
-    $rootScope.cacheDate={};
+//----缓存cache，用于缓存controller需要共同访问的数据
+    $rootScope.cache={};
 
-//---*缓存cacheDate---END
+//---*缓存cache---END
 
     //判断cookie中是否存有用户，没有则打开登录模态框
     if($cookies.getObject('user')){

@@ -12,7 +12,11 @@ module.exports = {
             }
             BillService.getAmountAfterLastSettlementByUser(userId, lastSettlementTime,function(billAmount){
                 OrderService.getAmountAfterLastSettlementByUser(userId, lastSettlementTime,function(orderAmount){
-                    callback(billAmount - orderAmount);
+                    console.log(billAmount - orderAmount);
+                    User.findOne({id:userId}).exec(function(err,user){
+                        console.log(user.name+":"+(billAmount - orderAmount));
+                        callback({userId:user.id,name:user.name,needPay:billAmount - orderAmount});
+                    });
                 });
             })
         });

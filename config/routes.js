@@ -46,6 +46,4 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-    'get /bill/getAmount':'BillController.getAmount',
-    'get /order/getAmount':'OrderController.getAmount'
 };

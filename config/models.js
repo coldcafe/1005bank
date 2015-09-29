@@ -17,9 +17,8 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  //connection: 'localDiskDb',
-  connection: 'Mongodb_1005bank',
-  //connection: 'Mongodb_1005bank_remote',
+  // connection: 'localDiskDb',
+   connection: 'Mongodb_1005bank',
   /***************************************************************************
   *                                                                          *
   * How and whether Sails will attempt to automatically rebuild the          *

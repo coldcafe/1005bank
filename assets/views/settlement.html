@@ -1,6 +1,10 @@
 <div class="scrollable ng-scope" ng-controller="settlementCtrl">
     <div class="scrollable-content section overthrow">
-        您的账单总额：{{billAmount}}<br/><br/>
-        您的付款总额：{{orderAmount}}<br/><br/>
+        <button class="btn btn-primary btn-block" ng-click="addSettlement()">
+            我要结账
+        </button>
+        <button class="btn btn-primary btn-block" ng-click="getSettlement()">
+            查看待结算账单
+        </button>
     </div>
 </div>

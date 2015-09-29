@@ -5,20 +5,20 @@ myApp.controller("payFormCtrl",function ($rootScope,$scope,$cookies,$http){
     if(!$rootScope.user){
         $rootScope.loginModal.state=true;
     }else{
-        if(!$rootScope.cacheDate.userList){
+        if(!$rootScope.cache.userList){
             $http.get($rootScope.config.DBUrl+"/user?group=1005").success(function (data) {
-                $rootScope.cacheDate.userList = data;
+                $rootScope.cache.userList = data;
             });
         }
         //模态框内选择参与人
         $scope.selectJoinPay = {
-            userList:$rootScope.cacheDate.userList,
+            userList:$rootScope.cache.userList,
             selectJoin:function(){
                 console.log('selectJoin');
-                $rootScope.cacheDate.joinPayList = [];
+                $rootScope.cache.joinPayList = [];
                 $scope.selectJoinPay.userList.forEach(function(e){
                     if(e.select){
-                        $rootScope.cacheDate.joinPayList.push(e);
+                        $rootScope.cache.joinPayList.push(e);
                     }
                 });
                 $rootScope.joinPayModal.hide();
@@ -36,7 +36,7 @@ myApp.controller("payFormCtrl",function ($rootScope,$scope,$cookies,$http){
                 if(!$scope.busy) {
                     $scope.busy = true;
                     $scope.payForm.joinPayList = [];
-                    $rootScope.cacheDate.joinPayList.forEach(function (e) {
+                    $rootScope.cache.joinPayList.forEach(function (e) {
                         $scope.payForm.joinPayList.push({id: e.id, name: e.name});
                     });
                     $http.post($rootScope.config.DBUrl + "/order", {title: $scope.payForm.title, money: $scope.payForm.money, joinPayList: $scope.payForm.joinPayList, payUser: $rootScope.user.id}).success(function (data) {
