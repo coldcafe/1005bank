@@ -1,0 +1,21 @@
+<div ui-content-for="toSettleModal">
+    <div class="modal" ng-controller="settlementCtrl" ng-if="toSettleModal.state">
+        <div class="modal-backdrop in"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ng-click="toSettleModal.hide()">&times;</button>
+                    <h4 class="modal-title">我要结算</h4>
+                </div>
+                <div class="modal-body">
+                    我的账单总额：{{billAmount}}<br/>
+                    我的支付总额：{{orderAmount}}<br/>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="addSettlement()">申请结算</button>
+                    <button class="btn btn-default" ng-click="toSettleModal.hide()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

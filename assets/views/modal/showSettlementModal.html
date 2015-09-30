@@ -1,0 +1,22 @@
+<div ui-content-for="showSettlementModal">
+    <div class="modal" ng-controller="settlementCtrl" ng-if="showSettlementModal.state">
+        <div class="modal-backdrop in"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ng-click="showSettlementModal.hide()">&times;</button>
+                    <h4 class="modal-title">待结算单</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr ng-repeat="each in needPayList"><td>{{each.name}}:</td><td>{{each.needPay}}</td></tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="">我的结算方案</button>
+                    <button class="btn btn-default" ng-click="showSettlementModal.hide()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

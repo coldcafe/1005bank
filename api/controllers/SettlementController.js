@@ -42,13 +42,26 @@ module.exports = {
                             if (err) {
                                 res.send({error: err});
                             } else {
-                                User.update({group: '1005'}, {goingToSettle: false}).exec(function (err, result) {
+                                    doc.needPayList.forEach(function(from,i){
+                                        if(from.money>0) {
+                                            var To = -1;
+                                            var min = 2147483647;
+                                            var x = 0;
+                                            doc.needPayList.forEach(function (to,j) {
+                                                if(to.money<0){
+                                                   min = (from.money+to.money)<min?(from.money+to.money):x
+                                                }
+                                            });
+                                        }
+                                    });
+                                    TransferCase.create({settlementId:doc.id,userId:user.id,toUser:toUser,money:money,state:0}).exec();
+
                                     if (err) {
                                         res.send({error: err});
                                     } else {
                                         res.send({error: null, result: doc});
                                     }
-                                });
+
                             }
                         });
                     }else{

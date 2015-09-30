@@ -68,7 +68,7 @@ myApp.controller("appCtrl",function($rootScope,$scope,$cookies,$http){
             $rootScope.joinPayModal.state = false;
         }
     };
-    //显示结算单
+    //显示待结算单
     $rootScope.showSettlementModal = {
         state:false,
         show:function(){
@@ -76,6 +76,16 @@ myApp.controller("appCtrl",function($rootScope,$scope,$cookies,$http){
         },
         hide:function(){
             $rootScope.showSettlementModal.state = false;
+        }
+    };
+    //我要结算模态框
+    $rootScope.toSettleModal = {
+        state:false,
+        show:function(){
+            $rootScope.toSettleModal.state = true;
+        },
+        hide:function(){
+            $rootScope.toSettleModal.state = false;
         }
     };
 

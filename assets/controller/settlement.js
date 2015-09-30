@@ -5,6 +5,24 @@ myApp.controller("settlementCtrl",function ($rootScope,$scope,$cookies,$http){
     if(!$rootScope.user){
         $rootScope.loginModal.state=true;
     }else{
+        $scope.getAmount = function() {
+            $http.get($rootScope.config.DBUrl + "/bill/getAmount?userId="+$rootScope.user.id).success(function (doc) {
+                if(doc.amount) {
+                    $rootScope.billAmount = doc.amount;
+                }else{
+                    alert('没有返回账单总额');
+                }
+            });
+            $http.get($rootScope.config.DBUrl + "/order/getAmount?userId="+$rootScope.user.id).success(function (doc) {
+                if(doc.amount) {
+                    $rootScope.orderAmount = doc.amount;
+                }else{
+                    alert('没有返回支付单总额');
+                }
+            });
+            $rootScope.toSettleModal.show();
+        };
+
         $scope.getSettlement = function() {
             $http.get($rootScope.config.DBUrl + "/settlement?state=0&sort=createdAt DESC&limit=1").success(function (doc) {
                 if(doc[0]) {
@@ -29,9 +47,7 @@ myApp.controller("settlementCtrl",function ($rootScope,$scope,$cookies,$http){
                                     alert(doc.error);
                                 } else {
                                     if(doc.notAll){
-                                        console.log(doc.needPayList);
-                                        $rootScope.needPayList = doc.needPayList;
-                                        $rootScope.showSettlementModal.show();
+                                        alert('已申请，还需请等待其他小伙伴申请，当前人数'+doc.needPayList.length);
                                     }else {
                                         $scope.getSettlement();
                                     }
@@ -43,7 +59,6 @@ myApp.controller("settlementCtrl",function ($rootScope,$scope,$cookies,$http){
                     });
                 }
             });
-
         }
     }
 });
