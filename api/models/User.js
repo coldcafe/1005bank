@@ -32,6 +32,10 @@ module.exports = {
       goingToSettle:{
           type: 'boolean',
           defaultsTo:false
+      },
+      doneSettle:{
+          type: 'boolean',
+          defaultsTo:false
       }
   }
 };

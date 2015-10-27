@@ -20,6 +20,53 @@ module.exports = {
             }
         })
     },
+    doneSettlement : function(req,res){
+        async.waterfall([
+            function(cb){//将用户结算状态置为true
+                User.update({id:req.param('userId')},{doneSettle:true}).exec(function(err,user) {
+                    cb(err,user);
+                });
+            },
+            function(user,cb){
+                User.find({group:'1005'}).exec(function(err,doc){//统计所有用户的结算状态
+                    var userList = doc;
+                    var doneUsers = 0;
+                    doc.forEach(function(user){
+                        if(user.doneSettle == true){
+                            doneUsers++
+                        }
+                    });
+                    var allDone = false;
+                    if(doneUsers == userList.length){
+                        allDone = true;
+                    }
+                    cb(err,allDone,userList);
+                });
+            },
+            function(allDone,userList,cb){
+                if(allDone){//所有用户都是结算状态则结算完成，重置所有用户状态goingToSettle：false,doneSettle:false
+                    async.each(userList,function(user,cb){
+                        User.update({id:user.id},{goingToSettle:false,doneSettle:false}).exec(function(err,user) {
+                            cb(err,user);
+                        });
+                    },function(err){
+                        cb(err,{allDone:true});
+                    });
+                }else{
+                    cb(null,{allDone:false});
+                }
+            },
+            function(allDone){
+                Settlement.update({},{});
+            }
+        ],function(err,result){
+            if (err) {
+                res.send({error: err});
+            } else {
+                res.send({error: null, result: result});
+            }
+        });
+    },
     addSettlement : function(req,res){
         User.find({group:'1005'}).exec(function(err,doc){
             var userList = doc;
@@ -42,26 +89,11 @@ module.exports = {
                             if (err) {
                                 res.send({error: err});
                             } else {
-                                    doc.needPayList.forEach(function(from,i){
-                                        if(from.money>0) {
-                                            var To = -1;
-                                            var min = 2147483647;
-                                            var x = 0;
-                                            doc.needPayList.forEach(function (to,j) {
-                                                if(to.money<0){
-                                                   min = (from.money+to.money)<min?(from.money+to.money):x
-                                                }
-                                            });
-                                        }
-                                    });
-                                    TransferCase.create({settlementId:doc.id,userId:user.id,toUser:toUser,money:money,state:0}).exec();
-
                                     if (err) {
                                         res.send({error: err});
                                     } else {
                                         res.send({error: null, result: doc});
                                     }
-
                             }
                         });
                     }else{
