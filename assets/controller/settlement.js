@@ -8,14 +8,14 @@ myApp.controller("settlementCtrl",function ($rootScope,$scope,$cookies,$http){
         $scope.getAmount = function() {
             $http.get($rootScope.config.DBUrl + "/bill/getAmount?userId="+$rootScope.user.id).success(function (doc) {
                 if(doc.amount) {
-                    $rootScope.billAmount = doc.amount;
+                    $rootScope.billAmount = doc.amount.toFixed(2);
                 }else{
                     alert('没有返回账单总额');
                 }
             });
             $http.get($rootScope.config.DBUrl + "/order/getAmount?userId="+$rootScope.user.id).success(function (doc) {
                 if(doc.amount) {
-                    $rootScope.orderAmount = doc.amount;
+                    $rootScope.orderAmount = doc.amount.toFixed(2);
                 }else{
                     alert('没有返回支付单总额');
                 }
